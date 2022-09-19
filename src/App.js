@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./assets/css/style.css";
 import Images from "./Images";
 
 const App = () => {
   const [title, setTitle] = useState("Hey React");
   const [isShowing, setIsShowing] = useState(false);
+  const mountRef = useRef(false);
 
   // component did mount only
   useEffect(() => {
     console.log("App mounted");
   }, []);
+
+  // component will update
+  useEffect(() => {
+    if (mountRef.current) {
+      console.log("App Update");
+    } else {
+      mountRef.current = true;
+    }
+  }, [isShowing]);
 
   const toggleHandler = () => {
     setIsShowing(!isShowing);
