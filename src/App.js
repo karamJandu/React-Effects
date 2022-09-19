@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./assets/css/style.css";
+import Images from "./Images";
 
-function App() {
+const App = () => {
+  const [title, setTitle] = useState("Hey React");
+  const [isShowing, setIsShowing] = useState(false);
+
+  // component did mount only
+  useEffect(() => {
+    console.log("App mounted");
+  }, []);
+
+  const toggleHandler = () => {
+    setIsShowing(!isShowing);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="flex justify-center">
+      {console.log("re-rendered")}
+      <div className="w-1/2">
+        <div className="text-center">
+          <div className="my-4">{title}</div>
+          <button
+            className="p-1 bg-blue-700 text-white"
+            onClick={toggleHandler}
+          >
+            Toggle Image
+          </button>
+        </div>
+        {isShowing ? <Images /> : null}
+      </div>
+    </section>
   );
-}
+};
 
 export default App;
