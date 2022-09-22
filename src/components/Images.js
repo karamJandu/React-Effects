@@ -13,7 +13,7 @@ const Images = () => {
     inputRef.current.focus();
     axios
       .get(
-        "https://api.unsplash.com/photos/?client_id=FU-hxJpxW5fLWERmcAugfemvUXDnAELWH1Gg8zw-5K0"
+        `https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_KEY}`
       )
       .then((res) => setImages(res.data));
   }, []);
