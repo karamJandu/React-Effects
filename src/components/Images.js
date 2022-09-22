@@ -1,42 +1,35 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import Image from "./Image";
-import axios from "axios";
+import useFetchImage from "../utils/hooks/useFetchImage";
 
 const Images = () => {
-  const [url, setUrl] = useState("");
-  const [images, setImages] = useState([]);
+  const [page, setPage] = useState(1);
+  const [images, setImages, errors, isLoading] = useFetchImage(page); // fetched using custom hook
 
-  const inputRef = useRef(null);
-  const varRef = useRef(images.length);
-
-  useEffect(() => {
-    inputRef.current.focus();
-    axios
-      .get(
-        `${process.env.REACT_APP_UNSPLASH_URL}?client_id=${process.env.REACT_APP_UNSPLASH_KEY}`
-      )
-      .then((res) => setImages(res.data));
-  }, []);
-
-  useEffect(() => {
-    varRef.current = varRef.current + 1;
-  });
-
-  const onAddHandler = () => {
-    if (url.trim() !== "") {
-      setImages([...images, url]);
-    }
-    setUrl("");
-  };
-
+  // event handler to remove image
   const onRemoveHandler = (targetIndex) => {
     setImages(images.filter((image, i) => i !== targetIndex));
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex h-screen">
+        <p className="m-auto">
+          <i className="fas fa-circle-notch fa-spin text-5xl text-yellow-600" />
+        </p>
+      </div>
+    );
+  }
+
   return (
     <section>
-      <h1>{varRef.current} Images</h1>
-      <div className="flex flex-wrap justify-around">
+      {errors.length > 0 && (
+        <div className="flex h-screen">
+          <p className="m-auto">{errors[0]}</p>
+        </div>
+      )}
+
+      <div className="mt-4" style={{ columnCount: 5 }}>
         {images.map((img, index) => (
           <Image
             key={index}
@@ -46,25 +39,12 @@ const Images = () => {
           />
         ))}
       </div>
-      <div className="flex justify-around my-5">
-        <input
-          type="text"
-          value={url}
-          ref={inputRef}
-          id="inputBox"
-          onChange={(e) => setUrl(e.target.value)}
-          className="p-1 mr-4 border border-gray-800 shadow rounded w-full"
-        />
-        <button
-          disabled={url.trim() === ""}
-          onClick={onAddHandler}
-          className={`p-1  text-white ${
-            url.trim() !== "" ? "bg-green-600" : "bg-green-300"
-          }`}
-        >
-          Add
-        </button>
-      </div>
+      <button
+        className="p-1 bg-blue-600 text-white mb-4"
+        onClick={() => setPage(page + 1)}
+      >
+        Load More...
+      </button>
     </section>
   );
 };
