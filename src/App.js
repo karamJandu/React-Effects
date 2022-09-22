@@ -1,25 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import "./assets/css/style.css";
-import Images from "./Images";
+import Images from "./components/Images";
 
 const App = () => {
   const [title, setTitle] = useState("Hey React");
   const [isShowing, setIsShowing] = useState(false);
-  const mountRef = useRef(false);
-
-  // component did mount only
-  useEffect(() => {
-    console.log("App mounted");
-  }, []);
-
-  // component will update
-  useEffect(() => {
-    if (mountRef.current) {
-      console.log("App Update");
-    } else {
-      mountRef.current = true;
-    }
-  }, [isShowing]);
 
   const toggleHandler = () => {
     setIsShowing(!isShowing);
@@ -27,8 +12,7 @@ const App = () => {
 
   return (
     <section className="flex justify-center">
-      {console.log("re-rendered")}
-      <div className="w-1/2">
+      <div className="w-10/12">
         <div className="text-center">
           <div className="my-4">{title}</div>
           <button
