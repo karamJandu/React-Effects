@@ -1,15 +1,20 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./assets/css/style.css";
-import Images from "./components/Images";
+import Header from "./components/Header";
+import Gallery from "./pages/Gallery";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 const App = () => {
   return (
-    <section className="flex justify-center">
-      <div className="w-10/12">
-        <div className="text-center">
-          <Images />
-        </div>
-      </div>
-    </section>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/gallery" element={<Gallery />} />
+      </Routes>
+    </Router>
   );
 };
 
