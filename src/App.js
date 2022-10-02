@@ -4,8 +4,10 @@ import Header from "./components/Header";
 import Gallery from "./pages/Gallery";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import initFirebase from "./config/initFirebase";
 
 const App = () => {
+  initFirebase();
   return (
     <Router>
       <Header />
