@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Navigate } from "react-router-dom";
+import AppContext from "../store/AppContext";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({ email: "", password: "" });
+  const [isLoggedIn, user] = useContext(AppContext);
 
   // Login L
   const handleForm = (e) => {
@@ -13,7 +16,7 @@ const Login = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, form.email, form.password)
       .then((res) => {
-        console.log(res);
+        setError("");
         setIsLoading(false);
       })
       .catch((err) => {
@@ -23,9 +26,11 @@ const Login = () => {
   };
 
   const handleInput = (e) => {
-    console.log(e.target.value, e.target.name);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
+  // if user logged in, navigate to home page
+  if (isLoggedIn) return <Navigate to="/" />;
 
   return (
     <div className="flex h-screen">
