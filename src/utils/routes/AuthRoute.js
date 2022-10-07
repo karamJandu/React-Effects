@@ -10,5 +10,5 @@ export default function AuthRoute({ children }) {
 
   if (isLoggedIn) return children;
 
-  return <Navigate to="/" />;
+  return <Navigate to="/login" />;
 }

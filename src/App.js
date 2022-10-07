@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AppContext from "./store/AppContext";
 import AnimatedRoute from "./utils/routes/AnimatedRoute";
+import AuthRoute from "./utils/routes/AuthRoute";
 
 import "./assets/css/style.css";
 import Header from "./components/Header";
@@ -54,17 +55,21 @@ const App = () => {
           <Route
             path="/gallery"
             element={
-              <AnimatedRoute>
-                <Gallery />
-              </AnimatedRoute>
+              <AuthRoute>
+                <AnimatedRoute>
+                  <Gallery />
+                </AnimatedRoute>
+              </AuthRoute>
             }
           />
           <Route
             path="/tensorflow"
             element={
-              <AnimatedRoute>
-                <Tensorflow />
-              </AnimatedRoute>
+              <AuthRoute>
+                <AnimatedRoute>
+                  <Tensorflow />
+                </AnimatedRoute>
+              </AuthRoute>
             }
           />
           <Route
