@@ -5,7 +5,7 @@ import { getAuth, signOut } from "firebase/auth";
 import AppContext from "../store/AppContext";
 
 const Header = () => {
-  const [isLoggedIn, user] = useContext(AppContext);
+  const [isLoggedIn] = useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -21,7 +21,7 @@ const Header = () => {
   };
 
   const activeLink = (_path) => {
-    return location.pathname == _path ? "text-indigo-400" : "text-white";
+    return location.pathname === _path ? "text-indigo-400" : "text-white";
   };
 
   return (
@@ -33,9 +33,17 @@ const Header = () => {
               Home
             </NavLink>
           </li>
-          <li>
+          <li className="mr-5">
             <NavLink to="/gallery" className={() => activeLink("/gallery")}>
               Gallery
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/tensorflow"
+              className={() => activeLink("/tensorflow")}
+            >
+              TensorFlow
             </NavLink>
           </li>
         </span>

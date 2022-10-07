@@ -13,6 +13,7 @@ import initFirebase from "./config/initFirebase";
 import Loading from "./components/Loading";
 import NotFound from "./pages/NotFound";
 import SignUp from "./pages/SignUp";
+import Tensorflow from "./pages/Tensorflow";
 
 const App = () => {
   initFirebase();
@@ -55,6 +56,14 @@ const App = () => {
             element={
               <AnimatedRoute>
                 <Gallery />
+              </AnimatedRoute>
+            }
+          />
+          <Route
+            path="/tensorflow"
+            element={
+              <AnimatedRoute>
+                <Tensorflow />
               </AnimatedRoute>
             }
           />
